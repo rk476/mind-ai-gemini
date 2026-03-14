@@ -1,16 +1,42 @@
 steps:
-  # Build the container image
+  # 1. Build the container image
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', 'us-central1-docker.pkg.dev/hyrgpt-browser-agent/browser-agent/mind-agent:latest', '.']
 
-  # Push the container image to Artifact Registry
+  # 2. Push the container image to Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/hyrgpt-browser-agent/browser-agent/mind-agent:latest']
 
-# Use the images field to track the build output
+  # 3. Deploy to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'deploy'
+      - 'mind-ai'
+      - '--image'
+      - 'us-central1-docker.pkg.dev/hyrgpt-browser-agent/browser-agent/mind-agent:latest'
+      - '--region'
+      - 'us-central1'
+      - '--port'
+      - '3000'
+      - '--platform'
+      - 'managed'
+
+  # 4. AUTOMATION: Make the service public (Allow Unauthenticated)
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - 'run'
+      - 'services'
+      - 'add-iam-policy-binding'
+      - 'mind-ai'
+      - '--member=allUsers'
+      - '--role=roles/run.invoker'
+      - '--region=us-central1'
+
 images:
   - 'us-central1-docker.pkg.dev/hyrgpt-browser-agent/browser-agent/mind-agent:latest'
 
-# This block fixes the "invalid argument" logging error
 options:
   logging: CLOUD_LOGGING_ONLY
