@@ -7,5 +7,10 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-central1-docker.pkg.dev/hyrgpt-browser-agent/browser-agent/mind-agent:latest']
 
+# Use the images field to track the build output
 images:
   - 'us-central1-docker.pkg.dev/hyrgpt-browser-agent/browser-agent/mind-agent:latest'
+
+# This block fixes the "invalid argument" logging error
+options:
+  logging: CLOUD_LOGGING_ONLY
