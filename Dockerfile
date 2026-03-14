@@ -1,5 +1,8 @@
 FROM mcr.microsoft.com/playwright:v1.45.0-jammy
 
+# Upgrade Node.js to 20.19.0 to be compatible with mongodb@7.1.0
+RUN npm install -g n && n 20.19.0 && hash -r
+
 # Set working directory
 WORKDIR /app
 
