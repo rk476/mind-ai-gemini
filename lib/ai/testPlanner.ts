@@ -33,6 +33,9 @@ Given a page DOM summary and natural-language test instructions, produce a JSON 
 Rules:
 - Maximum 10 test cases
 - Maximum 20 steps per test case
+- Do not generate duplicate or similar test cases
+- All Test cases must be unique and only necessary steps should be included as per the Test Instructions
+- Do not add any extra steps or test cases
 - Output ONLY valid JSON. No markdown, no explanation, no code fences
 - Use fillByLabel when the input has an associated label
 - Use fillByPlaceholder when the input has a placeholder

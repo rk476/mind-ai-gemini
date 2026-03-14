@@ -41,8 +41,8 @@ export function getConfig(): AppConfig {
     },
     gemini: {
       apiKey: env('GEMINI_API_KEY', ''),
-      flashModel: env('GEMINI_FLASH_MODEL', 'gemini-3-flash-preview'),
-      proModel: env('GEMINI_PRO_MODEL', 'gemini-3-flash-preview'),
+      flashModel: env('GEMINI_FLASH_MODEL', 'gemini-3.1-flash-lite-preview'),
+      proModel: env('GEMINI_PRO_MODEL', 'gemini-3.1-flash-lite-preview'),
     },
     app: {
       url: env('APP_URL', 'http://localhost:3000'),
