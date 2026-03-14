@@ -11,7 +11,7 @@ export function getRedisConnection(): IORedis {
 
     connection = new IORedis(redisUrl, {
       maxRetriesPerRequest: null,
-      ...(isUpstash ? { tls: {}, family: 6 } : {}),
+      ...(isUpstash ? { tls: {} } : {}),
     });
   }
   return connection;
