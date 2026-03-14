@@ -148,7 +148,7 @@ export default function MissionLiveTestDetailPage() {
           <h2 className="text-xl font-display text-mission-danger mb-2">Error Loading Mission</h2>
           <p className="text-mission-text-dim mb-6">{error || 'Mission not found'}</p>
           <button
-            onClick={() => router.push('/mission-live')}
+            onClick={() => router.push('/')}
             className="px-6 py-2 bg-mission-bg border border-white/10 rounded-lg text-sm hover:bg-white/5 transition-colors"
           >
             ← Back to Mission Control
@@ -183,7 +183,7 @@ export default function MissionLiveTestDetailPage() {
         </div>
         <div>
           <button
-            onClick={() => router.push('/mission-live')}
+            onClick={() => router.push('/')}
             className="px-5 py-2 bg-gradient-to-r from-mission-primary to-mission-accent text-white text-xs font-bold uppercase tracking-wider rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] transition-shadow"
           >
             Launch New Mission

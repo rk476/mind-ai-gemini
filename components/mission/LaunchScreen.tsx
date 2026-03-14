@@ -9,15 +9,47 @@ interface Props {
 
 export default function LaunchScreen({ onLaunch }: Props) {
   const [isLaunching, setIsLaunching] = useState(false);
+  const [showPasswordModal, setShowPasswordModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [isCheckingPassword, setIsCheckingPassword] = useState(false);
 
-  const handleLaunchClick = async () => {
-    if (isLaunching) return;
-    setIsLaunching(true);
+  const handleLaunchClick = () => {
+    setShowPasswordModal(true);
+  };
+
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!password) return;
+
+    setIsCheckingPassword(true);
+    setPasswordError('');
+
     try {
-      await onLaunch();
+      const res = await fetch('/api/auth/verify-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password }),
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        setShowPasswordModal(false);
+        setIsLaunching(true);
+        try {
+          await onLaunch();
+        } catch (err) {
+          console.error(err);
+          setIsLaunching(false);
+        }
+      } else {
+        setPasswordError(data.error || 'Invalid password');
+      }
     } catch (err) {
       console.error(err);
-      setIsLaunching(false);
+      setPasswordError('Server error verifying password');
+    } finally {
+      setIsCheckingPassword(false);
     }
   };
 
@@ -139,6 +171,55 @@ export default function LaunchScreen({ onLaunch }: Props) {
       >
         Powered by Gemini AI
       </motion.p>
+
+      {/* Password Modal Overlay */}
+      {showPasswordModal && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
+          <motion.div
+            className="bg-mission-surface border border-mission-primary/30 p-8 rounded-2xl w-full max-w-sm"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+          >
+            <h2 className="text-xl font-display text-white mb-2">Access Required</h2>
+            <p className="text-sm text-mission-text-dim mb-6">
+              This project uses advanced AI. To prevent excessive token usage, a password is required to launch a mission.
+            </p>
+
+            <form onSubmit={handlePasswordSubmit}>
+              <div className="mb-4">
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter Password"
+                  className="w-full bg-black/50 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-mission-primary transition-colors"
+                  autoFocus
+                />
+                {passwordError && (
+                  <p className="text-mission-danger text-xs mt-2">{passwordError}</p>
+                )}
+              </div>
+
+              <div className="flex gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowPasswordModal(false)}
+                  className="flex-1 px-4 py-2 border border-white/10 text-white/70 rounded-lg hover:bg-white/5 transition-colors text-sm"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isCheckingPassword || !password}
+                  className={`flex-1 px-4 py-2 bg-mission-primary text-white font-medium rounded-lg transition-colors text-sm ${isCheckingPassword || !password ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-500'}`}
+                >
+                  {isCheckingPassword ? 'Verifying...' : 'Launch'}
+                </button>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 }

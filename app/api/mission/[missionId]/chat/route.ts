@@ -51,7 +51,7 @@ export async function POST(
       await addConversationMessage(params.missionId, userMsg);
     }
 
-    // If requirements are passed directly (from /mission-live), save them
+    // If requirements are passed directly (from /), save them
     if (body.requirements) {
       await setRequirements(params.missionId, body.requirements);
       await updateMissionStatus(params.missionId, 'planning');

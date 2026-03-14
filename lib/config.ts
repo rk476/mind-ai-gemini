@@ -17,7 +17,7 @@ interface AppConfig {
   redis: { url: string };
   ai: { apiKey: string; baseUrl: string; model: string };
   gemini: { apiKey: string; flashModel: string; proModel: string };
-  app: { url: string; apiSecret: string; nodeEnv: string };
+  app: { url: string; apiSecret: string; nodeEnv: string; accessPassword?: string };
   playwright: { headless: boolean; maxDurationMs: number };
   rateLimit: { windowMs: number; maxRequests: number };
   domainAllowlist: string[];
@@ -48,6 +48,7 @@ export function getConfig(): AppConfig {
       url: env('APP_URL', 'http://localhost:3000'),
       apiSecret: env('API_SECRET', 'change-me-to-a-random-secret'),
       nodeEnv: env('NODE_ENV', 'development'),
+      accessPassword: envOptional('TEMP_ACCESS_PASSWORD'),
     },
     playwright: {
       headless: process.env.PLAYWRIGHT_HEADLESS !== 'false',

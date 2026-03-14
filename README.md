@@ -1,6 +1,8 @@
 # M.I.N.D. (Machine Interface for Navigation & Diagnostics) — Autonomous QA Engineer
 
-An **AI-powered autonomous web testing agent** built with Next.js, Google Gemini, Playwright, Redis, and MongoDB. The system behaves like a real QA engineer: it collects testing requirements through natural conversation, plans test workflows, executes browser tests autonomously, and generates highly detailed, interactive reports.
+An **AI-powered autonomous web testing agent** built with Next.js, Google Gemini, Playwright, Redis, and MongoDB. The system behaves like a real QA engineer: it collects testing requirements through natural conversation via **Gemini Live AI**, plans test workflows, executes browser tests autonomously, and uses **advanced Image analysis** to visually validate results, generating highly detailed, interactive reports.
+
+> Software teams waste countless hours writing and maintaining brittle UI tests because websites constantly change. M.I.N.D. solves this by acting as an autonomous QA engineer. By leveraging **Gemini Live AI** for real-time conversational understanding and **advanced Image analysis** for visual validation, you can define goals in plain English while the agent writes, executes, and self-heals its own Playwright scripts. It streams the browser session live and uses visual AI to confirm success—allowing engineering teams to ship faster with zero test maintenance overhead.
 
 ---
 
@@ -150,38 +152,71 @@ docker run -p 3000:3000 --env-file .env browser-agent-next
 
 ---
 
+## Reproducible Testing
+
+Every test run in M.I.N.D. is tracked with a unique `runId` and saved in the database with complete execution artifacts. This ensures highly reproducible results:
+
+- **Session Replays:** Every execution generates a recording of the browser session.
+- **Network & Console Logs:** Network requests, responses, and JavaScript console errors from the target browser are captured.
+- **Self-Healing Records:** If a selector healed during the run, the AI records both the old failed selector and the new successful one.
+- **Visual State:** Pre-action and post-action screenshots are taken for every single Playwright action in the chain.
+
+You can view these artifacts by navigating to the **Test Results Dashboard** for any completed or failed test run.
+
+---
+
 ## Project Structure
 
-```
+```text
 /app                          Next.js App Router
+  /layout.tsx                 Root layout file
   /page.tsx                   Main Mission Control page (state machine)
   /globals.css                Design system (glassmorphism, neon, orb)
   /mission-live/
     /[testId]/page.tsx        Detailed Execution Report Dashboard (Video, Steps, Logs)
   /api/
-    /mission/                 Mission lifecycle APIs
-      /[missionId]/stream/    Server-Sent Events (SSE) for Live Browser Previews
-      /[missionId]/execute/   Trigger Playwright background job
+    /analyze-url/             API to extract basic information from a URL
+    /gemini-live/             WebSocket endpoint for real-time Voice AI conversation
+    /mission/                 Mission creation APIs
+      /[missionId]/
+        /chat/                API to send and receive text messages during requirement gathering
+        /execute/             API to trigger Playwright execution via BullMQ
+        /stream/              Server-Sent Events (SSE) for Live Browser Previews
+    /run-test/                Direct test execution API (bypasses planner)
     /test/[runId]/            Data aggregation APIs for test results
-    /test/[runId]/video/      Internal streaming relay for local .webm session replays
+      /report/                AI generated summaries of the test run
+      /screenshot/[stepId]/   Endpoint to serve stored screenshots
+      /video/                 Internal streaming relay for local .webm session replays
+    /tests/                   Global API to list all tests
+      /[runId]/               Status for specific test run
 
 /components/mission/          Mission Control UI components
   AiAvatar.tsx                Animated AI orb with state visuals
-  ConversationPanel.tsx       Chat transcript + AI reasoning
   BrowserPreview.tsx          Live browser preview + streaming overlays
+  ConversationPanel.tsx       Chat transcript + AI reasoning
   DynamicInputPanel.tsx       Bottom input panel (URL, email, password)
+  LaunchScreen.tsx            Initial launch screen UI
+  MissionControlHeader.tsx    Header for the Mission Control dashboard
   TestResults.tsx             Results dashboard with stats + links to full report
 
 /lib/
   /ai/
+    analyserAgent.ts          DOM structure and context analysis
+    domAnalyzer.ts            Analyzes DOM elements for test planning
     geminiClient.ts           Unified Gemini API client (Flash + Pro)
+    reportAgent.ts            Generates end-of-test reports
     requirementAgent.ts       Conversational requirement extraction
-    testPlannerAgent.ts       Workflow planning agent
+    resultSummarizer.ts       Summarizes execution results
     screenshotAnalyzer.ts     Gemini Flash visual validation of screen states
+    testPlanner.ts            Core logic for planning test steps
+    testPlannerAgent.ts       Workflow planning agent based on requirements
   /db/
     db.ts                     MongoDB connection + collections
+    migrate.ts                Database migrations and indexing
+    missionStore.ts           Data access layer for Mission docs
   /mcp/
     browserTools.ts           Playwright browser tool abstraction (clicks, typing, asserts)
+    mcpServer.ts              Model Context Protocol server implementation
     selectorEngine.ts         Self-healing selector engine
   /executor/
     testRunner.ts             Playwright browser execution engine & DOM capture
