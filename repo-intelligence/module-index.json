@@ -1,0 +1,54 @@
+{
+    "modules": [
+        {
+            "name": "api",
+            "base_path": "app/api",
+            "features_file": "modules/api/features.json"
+        },
+        {
+            "name": "ui",
+            "base_path": "app",
+            "features_file": "modules/ui/features.json"
+        },
+        {
+            "name": "worker",
+            "base_path": "worker",
+            "features_file": "modules/worker/features.json"
+        },
+        {
+            "name": "ai",
+            "base_path": "lib/ai",
+            "features_file": "modules/ai/features.json"
+        },
+        {
+            "name": "db",
+            "base_path": "lib/db",
+            "features_file": "modules/db/features.json"
+        },
+        {
+            "name": "executor",
+            "base_path": "lib/executor",
+            "features_file": "modules/executor/features.json"
+        },
+        {
+            "name": "mcp",
+            "base_path": "lib/mcp",
+            "features_file": "modules/mcp/features.json"
+        },
+        {
+            "name": "queue",
+            "base_path": "lib/queue",
+            "features_file": "modules/queue/features.json"
+        },
+        {
+            "name": "security",
+            "base_path": "lib/security",
+            "features_file": "modules/security/features.json"
+        },
+        {
+            "name": "storage",
+            "base_path": "lib/storage",
+            "features_file": "modules/storage/features.json"
+        }
+    ]
+}

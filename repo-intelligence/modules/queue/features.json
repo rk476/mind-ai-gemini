@@ -1,0 +1,14 @@
+{
+    "features": [
+        {
+            "name": "task_queue",
+            "description": "Wrapper over BullMQ to ensure test processing and retry logic",
+            "entry_points": [
+                "lib/queue/queue.ts"
+            ],
+            "files": [
+                "lib/queue/queue.ts"
+            ]
+        }
+    ]
+}

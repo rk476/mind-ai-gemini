@@ -1,0 +1,14 @@
+{
+    "features": [
+        {
+            "name": "security_utils",
+            "description": "Ensures environment and logic adheres to local security constraints when scraping or interacting",
+            "entry_points": [
+                "lib/security/security.ts"
+            ],
+            "files": [
+                "lib/security/security.ts"
+            ]
+        }
+    ]
+}

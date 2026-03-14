@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-browser": {
+      "source": "vercel-labs/agent-browser",
+      "sourceType": "github",
+      "computedHash": "2f771f8eb25f9856d2169a4de4766de94e2bdbff999f42c458c8f1e2ca405c03"
+    },
+    "browser-use": {
+      "source": "browser-use/browser-use",
+      "sourceType": "github",
+      "computedHash": "409117e97ea4689e138a2080bfa94893e31ea216fbd0220d834dbdb791ecbe0e"
+    },
+    "find-skills": {
+      "source": "vercel-labs/skills",
+      "sourceType": "github",
+      "computedHash": "6412eb4eb3b91595ebab937f0c69501240e7ba761b3d82510b5cf506ec5c7adc"
+    },
+    "gemini-api-dev": {
+      "source": "google-gemini/gemini-skills",
+      "sourceType": "github",
+      "computedHash": "a1bc395530ba9116a4509e27321eaf7cc81c5f93aa80a4778ad6f915180b4f2c"
+    },
+    "gemini-live-api-dev": {
+      "source": "google-gemini/gemini-skills",
+      "sourceType": "github",
+      "computedHash": "cf4ef3b9c9a331f0507357d78fb570b4bdee3010dfd2fb40b3ee3b25269fd3c1"
+    },
+    "nextjs-app-router-patterns": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "computedHash": "59fb01d2fad75636fbf99b505b7212490cc0e2a79a99bbf103a255c8e18904f1"
+    },
+    "playwright-explore-website": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "computedHash": "ac361696198c2db22a0f9d3aa456d2f83c9f0110bf00d6ca529f735395fe3a5c"
+    },
+    "ui-ux-pro-max": {
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "sourceType": "github",
+      "computedHash": "e688fcd4c5693e14ebd00d48e982dbd2be060fbea89f5f60531e79c704a1bc28"
+    }
+  }
+}

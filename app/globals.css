@@ -1,0 +1,205 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ─── Base Dark Theme ─────────────────────────────────────────────────── */
+
+:root {
+  --bg: #0B0F1A;
+  --surface: #111827;
+  --card: #1a2236;
+  --border: #1e293b;
+  --primary: #3B82F6;
+  --accent: #8B5CF6;
+  --highlight: #22D3EE;
+  --text: #E2E8F0;
+  --text-dim: #94A3B8;
+  --muted: #64748B;
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── Glassmorphism ───────────────────────────────────────────────────── */
+
+.glass {
+  background: rgba(17, 24, 39, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-light {
+  background: rgba(26, 34, 54, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ─── Neon Effects ────────────────────────────────────────────────────── */
+
+.neon-border {
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.1), inset 0 0 15px rgba(59, 130, 246, 0.05);
+}
+
+.neon-border-accent {
+  border: 1px solid rgba(139, 92, 246, 0.3);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.1), inset 0 0 15px rgba(139, 92, 246, 0.05);
+}
+
+.neon-border-highlight {
+  border: 1px solid rgba(34, 211, 238, 0.3);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.1), inset 0 0 15px rgba(34, 211, 238, 0.05);
+}
+
+/* ─── AI Orb ──────────────────────────────────────────────────────────── */
+
+.orb {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #3B82F6, #8B5CF6, #1e1b4b);
+  box-shadow: 0 0 60px rgba(59, 130, 246, 0.3), 0 0 120px rgba(139, 92, 246, 0.15);
+  position: relative;
+}
+
+.orb::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent, rgba(59, 130, 246, 0.3), transparent, rgba(139, 92, 246, 0.3), transparent);
+  z-index: -1;
+}
+
+.orb-ring {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  border: 1px solid rgba(59, 130, 246, 0.15);
+}
+
+.orb-ring-outer {
+  position: absolute;
+  inset: -24px;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 92, 246, 0.08);
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(100, 116, 139, 0.3);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(100, 116, 139, 0.5);
+}
+
+/* ─── Animated Gradient Background ────────────────────────────────────── */
+
+.gradient-bg {
+  background: linear-gradient(135deg, #0B0F1A 0%, #111827 40%, #0f172a 70%, #0B0F1A 100%);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─── Status Pulse ────────────────────────────────────────────────────── */
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.status-dot-idle { background: #64748B; }
+.status-dot-listening { background: #3B82F6; animation: pulse 1.5s ease-in-out infinite; }
+.status-dot-planning { background: #8B5CF6; animation: pulse 2s ease-in-out infinite; }
+.status-dot-executing { background: #22D3EE; animation: pulse 1s ease-in-out infinite; }
+.status-dot-completed { background: #10B981; }
+.status-dot-error { background: #EF4444; }
+
+/* ─── Message Bubbles ─────────────────────────────────────────────────── */
+
+.msg-ai {
+  background: rgba(59, 130, 246, 0.08);
+  border-left: 2px solid rgba(59, 130, 246, 0.4);
+}
+
+.msg-user {
+  background: rgba(139, 92, 246, 0.08);
+  border-left: 2px solid rgba(139, 92, 246, 0.4);
+}
+
+.msg-system {
+  background: rgba(34, 211, 238, 0.06);
+  border-left: 2px solid rgba(34, 211, 238, 0.3);
+}
+
+/* ─── Panel Dividers ──────────────────────────────────────────────────── */
+
+.panel-divider {
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2), transparent);
+}
+
+/* ─── Launch Button Glow ──────────────────────────────────────────────── */
+
+.launch-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.launch-btn::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(45deg, #3B82F6, #8B5CF6, #22D3EE, #3B82F6);
+  background-size: 300% 300%;
+  animation: borderGlow 3s linear infinite;
+  border-radius: inherit;
+  z-index: -1;
+}
+
+@keyframes borderGlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ─── Reasoning Log ───────────────────────────────────────────────────── */
+
+.reasoning-line {
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.75rem;
+  color: var(--highlight);
+  opacity: 0.8;
+}
+
+.reasoning-line::before {
+  content: '▸ ';
+  color: var(--accent);
+}

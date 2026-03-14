@@ -1,0 +1,24 @@
+{
+    "features": [
+        {
+            "name": "database_client",
+            "description": "Standard initialization payload for MongoDB and Redis connections",
+            "entry_points": [
+                "lib/db/db.ts"
+            ],
+            "files": [
+                "lib/db/db.ts"
+            ]
+        },
+        {
+            "name": "database_migrations",
+            "description": "Script to handle baseline initialization or migrations",
+            "entry_points": [
+                "lib/db/migrate.ts"
+            ],
+            "files": [
+                "lib/db/migrate.ts"
+            ]
+        }
+    ]
+}

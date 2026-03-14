@@ -1,0 +1,47 @@
+{
+    "repository_type": "full_stack_application",
+    "framework": "Next.js",
+    "architecture": "modular",
+    "modules": {
+        "api": {
+            "path": "app/api",
+            "description": "Backend API routes for test management and execution"
+        },
+        "ui": {
+            "path": "app",
+            "description": "Frontend pages and layouts for the testing dashboard and results"
+        },
+        "worker": {
+            "path": "worker",
+            "description": "Background worker process for executing tests asynchronously"
+        },
+        "ai": {
+            "path": "lib/ai",
+            "description": "AI-powered utilities for DOM analysis, test planning, and result summarization"
+        },
+        "db": {
+            "path": "lib/db",
+            "description": "Database connection and migration utilities"
+        },
+        "executor": {
+            "path": "lib/executor",
+            "description": "Orchestrates the execution of tests in the browser"
+        },
+        "mcp": {
+            "path": "lib/mcp",
+            "description": "Model Context Protocol tools and browser interaction primitives"
+        },
+        "queue": {
+            "path": "lib/queue",
+            "description": "Task queuing utilities for background processing"
+        },
+        "security": {
+            "path": "lib/security",
+            "description": "Security and validation utilities"
+        },
+        "storage": {
+            "path": "lib/storage",
+            "description": "Storage mechanisms for test reports, screenshots, and videos"
+        }
+    }
+}

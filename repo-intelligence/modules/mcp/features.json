@@ -1,0 +1,34 @@
+{
+    "features": [
+        {
+            "name": "browser_tools",
+            "description": "Defines tools allowed to run within context of Model Context Protocol",
+            "entry_points": [
+                "lib/mcp/browserTools.ts"
+            ],
+            "files": [
+                "lib/mcp/browserTools.ts"
+            ]
+        },
+        {
+            "name": "mcp_server",
+            "description": "Provides the MCP context mapping bindings",
+            "entry_points": [
+                "lib/mcp/mcpServer.ts"
+            ],
+            "files": [
+                "lib/mcp/mcpServer.ts"
+            ]
+        },
+        {
+            "name": "selector_engine",
+            "description": "Engine abstraction for accurately targeting Playwright elements via custom AI constraints",
+            "entry_points": [
+                "lib/mcp/selectorEngine.ts"
+            ],
+            "files": [
+                "lib/mcp/selectorEngine.ts"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,14 @@
+{
+    "features": [
+        {
+            "name": "test_runner",
+            "description": "Core execution loop driving the browser through Playwright bindings",
+            "entry_points": [
+                "lib/executor/testRunner.ts"
+            ],
+            "files": [
+                "lib/executor/testRunner.ts"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+/node_modules/
+.DS_Store
+.env
+.qoder/
+.next/
+.env.local
+images/
+videos/
+reports/
+*.tsbuildinfo

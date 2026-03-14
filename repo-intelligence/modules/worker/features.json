@@ -1,0 +1,14 @@
+{
+    "features": [
+        {
+            "name": "job_processor",
+            "description": "Background continuous worker for processing queued tests",
+            "entry_points": [
+                "worker/worker.ts"
+            ],
+            "files": [
+                "worker/worker.ts"
+            ]
+        }
+    ]
+}
