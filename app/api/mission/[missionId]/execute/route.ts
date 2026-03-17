@@ -70,13 +70,20 @@ export async function POST(
     // Build rich instructions string from requirements
     const instructions = [
       `Test website: ${requirements.website_url}`,
-      `Flows to test: ${requirements.workflows.join(', ')}`,
+      // `Flows to test: ${requirements.workflows.join(', ')}`,
+      `User Requirement : ${requirements.conversation_transcript}`,
       requirements.credentials_required && requirements.credentials?.email
         ? `Use email: ${requirements.credentials.email}, password: ${requirements.credentials.password}`
         : '',
       (requirements as typeof requirements & { expected_outcomes?: string[] }).expected_outcomes?.length
         ? `Expected outcomes: ${(requirements as typeof requirements & { expected_outcomes?: string[] }).expected_outcomes?.join('; ')}`
         : '',
+      `User Requirement is the primary focus of the test plan. Do not include any steps that are not related to the User Requirement.
+      Generate a comprehensive, executable test plan. Each test case should have clear, executable steps and must focus on the User Requirement and must not go beyond the User Requirement.
+
+      **Must Not**
+      - Include any steps that are not related to the User Requirement.
+      - Create any test cases that are not related to the User Requirement.`
     ].filter(Boolean).join('\n');
 
     await runs.insertOne({

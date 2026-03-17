@@ -45,19 +45,24 @@ RESPONSE FORMAT (JSON):
 export async function generateMissionPlan(
   requirements: TestRequirement & { expected_outcomes?: string[] }
 ): Promise<MissionPlan> {
+  // Workflows to test: ${requirements.workflows.join(', ')}
   const prompt = `Generate a test plan for the following requirements:
 
 Website: ${requirements.website_url}
-Workflows to test: ${requirements.workflows.join(', ')}
+User Requirement : ${requirements.conversation_transcript}
 Credentials required: ${requirements.credentials_required}
 ${requirements.credentials?.email ? `Email: ${requirements.credentials.email}` : ''}
 ${requirements.credentials?.password ? `Password: ${requirements.credentials.password}` : ''}
 Test depth: ${requirements.test_depth}
 ${requirements.expected_outcomes?.length ? `\nExpected Outcomes / Pass Criteria:\n${requirements.expected_outcomes.map((o, i) => `${i + 1}. ${o}`).join('\n')}` : ''}
+User Requirement is the primary focus of the test plan. Do not include any steps that are not related to the User Requirement.
 
-${requirements.conversation_transcript ? `CONVERSATION TRANSCRIPT (extract any credentials, URLs, or specific requirements mentioned):\n${requirements.conversation_transcript}\n` : ''}
+Generate a comprehensive, executable test plan. Each test case should have clear, executable steps and must focus on the User Requirement and must not go beyond the User Requirement.
 
-Generate a comprehensive, executable test plan. Each test case should have clear, executable steps.`;
+**Must Not**
+- Include any steps that are not related to the User Requirement.
+- Create any test cases that are not related to the User Requirement.
+`;
 
   return callGeminiJson<MissionPlan>(prompt, SYSTEM_INSTRUCTION, 'flash');
 }
